@@ -1,0 +1,129 @@
+/* white: background-color: #FFFAFA;
+   black: background-color: #292929;
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    transition: background-color 0.3s ease;
+    margin-left: 250px; /* Adjust for sidebar width */
+    padding: 2rem;
+}
+
+body.light-theme {
+    background-color: ##FFFAFA;
+    color: #292929;
+}
+
+body.dark-theme {
+    background-color: #292929;
+    color: #FFFAFA;
+}
+
+#themeToggle {
+  background: none;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 0;
+  width: 25%;
+  height: auto;
+  margin-top: 40%;
+  align-self: flex-end;
+}
+.moon_svg {
+  width: 80%;
+  height: auto;
+}
+                                                /* Header */
+.sidebar{
+    padding: 0;
+}
+
+nav div{
+    /*border: 1px solid green;*/
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+    height: 100%;
+    max-width: 75%;
+}
+
+.logo {
+    /*border: 1px solid black;*/
+    width: 80%;
+    max-width: 350px; /* Ограничиваем максимальную ширину логотипа */
+    height: auto; /* Поддерживаем пропорции изображения */
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.sidebar nav{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-wrap: no-wrap;
+    align-items: center;
+    height: 20%;
+}
+
+header nav div:hover {
+    cursor: pointer;
+    color: #d4f4dd;
+}
+
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*margin-top: 2rem;*/
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 1rem 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background-color 0.3s ease;
+    border-radius: 15px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #FFFAFA;
+    color: black;
+    border-radius: 15px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}

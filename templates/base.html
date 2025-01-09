@@ -1,0 +1,62 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Проект</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+{% block header %}
+<header>
+    <aside class="sidebar">
+        <nav>
+            <div>
+                <img class="logo" src="{% static 'img/logo.svg' %}" alt="Логотип">
+            </div>
+            <button id="themeToggle">
+                <img class="moon_svg" src="{% static 'img/moon_dark.svg' %}">
+            </button>
+        </nav>
+        <ul>
+            <li><a href="#home">Главная страница</a></li>
+            <li><a href="#about">Общая статистика</a></li>
+            <li><a href="#services">Востребованность</a></li>
+            <li><a href="#contact">География</a></li>
+            <li><a href="#portfolio">Навыки</a></li>
+            <li><a href="#blog">Последние вакансии</a></li>
+        </ul>
+    </aside>
+</header>
+{% endblock %}
+<body class="light-theme">
+{% block content %}
+{% endblock %}
+</body>
+{% block footer %}
+<footer>
+    <p>Черепанов Виктор Александрович, РИ-230914</p>
+</footer>
+{% endblock %}
+</html>
+<script>
+    document.getElementById('themeToggle').addEventListener('click', function() {
+    const currentTheme = document.body.className;
+    const logo = document.querySelector('.logo');
+    const moonIcon = document.querySelector('.moon_svg');
+
+    if (currentTheme === 'light-theme') {
+        document.body.className = 'dark-theme';
+        logo.src = '{% static "img/logo_white.svg" %}';
+        moonIcon.src = '{% static "img/sun_light.svg" %}';
+    } else {
+        document.body.className = 'light-theme';
+        logo.src = '{% static "img/logo.svg" %}';
+        moonIcon.src = '{% static "img/moon_dark.svg" %}';
+    }
+});
+</script>

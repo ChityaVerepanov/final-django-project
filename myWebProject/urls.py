@@ -17,7 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from mainStatistics.views import *
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("home", home)
+    #тут страницы и их адреса, функция из views
 ]
