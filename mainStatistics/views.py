@@ -15,8 +15,6 @@ def home(request):
     professions = Profession.objects.all()
     return render(request, 'main.html', {'professions': professions})
 
-
-
 def return_general_statistics(request):
     vacancies_per_year = Profession.objects.annotate(year=ExtractYear('published_at')).values('year').annotate(
         count=Count('id')).order_by('year')
@@ -46,10 +44,13 @@ def get_top_skills_all_years():
     top_skills_json = json.dumps(top_skills)
     return top_skills_json
 
-
 def return_demand(request):
-    return render(request, "demand.html")
+    vacancies_per_year = Profession.objects.annotate(year=ExtractYear('published_at')).values('year').annotate(
+        count=Count('id')).order_by('year')
 
+    vacancies_data = list(vacancies_per_year)
+
+    return render(request, "demand.html", {"vacancies_per_year": vacancies_data})
 
 def return_geography(request):
     # Получаем данные о вакансиях по городам
@@ -62,8 +63,8 @@ def return_geography(request):
     return render(request, "geography.html", {'vacancies_by_city_json': vacancies_data_json})
 
 def return_skills(request):
-    return render(request, "skills.html")
+    top_skills = get_top_skills_all_years()
+    return render(request, "skills.html", {"top_skills": top_skills})
 
 def return_latest_vacancies(request):
     return render(request, "latest_vacancies.html")
-# Create your views here.

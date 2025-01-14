@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<style>
-    #cityChart {
-        width: 100%; /* Задает ширину 100% от родительского элемента */
-        height: 400px; /* Задает фиксированную высоту */
-    }
-</style>
+<div class="pages-title-centered-container">
+    <div class="pages-title-container">
+        <div class="icon-plus top-left">+</div>
+        <div class="icon-plus top-right">+</div>
+        <div class="icon-plus bottom-left">+</div>
+        <div class="icon-plus bottom-right">+</div>
+        <h1 class="demand-main-title">География</h1>
+    </div>
+</div>
 <div>
-    <h1>Доля вакансий по городам.</h1>
+    <h2 class="pages-main-subtitle">Доля вакансий по городам.</h2>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <canvas id="cityChart" width="400" height="200"></canvas>
     <script>

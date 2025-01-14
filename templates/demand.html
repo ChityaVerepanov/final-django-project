@@ -1,5 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<p> Demand </p>
+<div class="pages-title-centered-container">
+    <div class="pages-title-container">
+        <div class="icon-plus top-left">+</div>
+        <div class="icon-plus top-right">+</div>
+        <div class="icon-plus bottom-left">+</div>
+        <div class="icon-plus bottom-right">+</div>
+        <h1 class="demand-main-title">Востребованность</h1>
+    </div>
+</div>
+<h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="vacanciesChart" width="400" height="200"></canvas>
+<script>
+    // Передаем данные из Django в JavaScript
+    const vacanciesData = {{ vacancies_per_year|safe }};
+
+    // Подготовка данных для графика
+    const labels = vacanciesData.map(entry => entry.year);
+    const data = vacanciesData.map(entry => entry.count);
+
+    // Создание графика
+    const ctx = document.getElementById('vacanciesChart').getContext('2d');
+    const vacanciesChart = new Chart(ctx, {
+        type: 'line', // Тип графика (линейный)
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Количество вакансий',
+                data: data,
+                borderColor: 'rgb(27,154,170)',
+                backgroundColor: 'rgba(27,154,170,0.11)',
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
 {% endblock %}

@@ -520,3 +520,81 @@ body.dark-theme .under-promo-developers{
     border-radius: 15px;
 }
 
+/*------------------------------Demand---------------------------------*/
+.pages-title-centered-container{
+    display: flex;
+    /*border: 1px solid red;*/
+    justify-content: center;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+.pages-title-container{
+    position: relative;
+    width: 60%;
+}
+
+.icon-plus {
+    position: absolute;
+    font-size: 1.7rem;
+}
+
+.top-left {
+    top: -15px;
+    left: 0;
+}
+
+.top-right {
+    top: -15px;
+    right: 0;
+}
+
+.bottom-left {
+    bottom: -15px;
+    left: 0;
+}
+
+.bottom-right {
+    bottom: -15px;
+    right: 0;
+}
+
+.demand-main-title{
+    display: flex;
+    width: 100%;
+    font-size: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.pages-main-subtitle{
+    font-family: "work sans", sans-serif;
+    padding-left: 1.5%;
+    color: #171717;
+}
+
+.pages-graph-div{
+    background-color: rgba(191, 191, 191, 0.33);
+    border-radius: 15px;
+    margin-bottom: 5%;
+}
+
+body.dark-theme .pages-graph-div{
+    background-color: #818080d9;
+}
+
+.pages-graph{
+    background-color: #bfbfbf9c;
+    padding: 5%;
+    border-radius: 15px;
+}
+
+body.dark-theme .pages-graph{
+    background-color: #3030309c;
+}
+
+.pages-graph-title{
+    padding: 1%;
+    font-size: 1.2rem;
+    text-align: center;
+}
