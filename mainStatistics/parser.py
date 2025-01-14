@@ -4,7 +4,7 @@ from collections import Counter
 from mainStatistics.models import Profession
 
 def main():
-    df = pd.read_csv('vacancies_2024.csv',  low_memory=False)
+    df = pd.read_csv('pupa.csv',  low_memory=False)
 
     keywords = [
         'web develop', 'веб разработчик', 'web разработчик', 'web programmer',

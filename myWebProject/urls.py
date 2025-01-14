@@ -22,6 +22,11 @@ from mainStatistics.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("home", home)
+    path("home", home),
+    path("general_statistics", return_general_statistics),
+    path("demand", return_demand),
+    path("geography", return_geography),
+    path("skills", return_skills),
+    path("latest_vacancies", return_latest_vacancies),
     #тут страницы и их адреса, функция из views
 ]

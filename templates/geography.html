@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    #cityChart {
+        width: 100%; /* Задает ширину 100% от родительского элемента */
+        height: 400px; /* Задает фиксированную высоту */
+    }
+</style>
+<div>
+    <h1>Доля вакансий по городам</h1>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <canvas id="cityChart" width="400" height="200"></canvas>
+    <script>
+        // Получаем данные о вакансиях из Django
+        const vacanciesData = {{ vacancies_by_city_json|safe }};
+        console.log(vacanciesData); // Проверка данных в консоли
+
+        // Проверяем, есть ли данные
+        if (!vacanciesData || vacanciesData.length === 0) {
+            console.error('Нет данных для отображения');
+        } else {
+            // Подготовка данных для графика
+            const labels = vacanciesData.map(entry => entry.area_name || 'Не указано'); // Обработка пустых полей
+            const data = vacanciesData.map(entry => entry.count);
+
+            // Создание графика
+            const ctx = document.getElementById('cityChart').getContext('2d');
+            const cityChart = new Chart(ctx, {
+                type: 'bar', // Тип графика: столбчатая диаграмма
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Количество вакансий по городам',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</div>
+{% endblock %}
