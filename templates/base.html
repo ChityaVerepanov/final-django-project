@@ -9,73 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 {% block header %}
 <header>
-    <aside class="sidebar collapsed">
+    <aside class="sidebar">
         <nav>
             <div>
                 <img class="logo" src="{% static 'img/logo.svg' %}" alt="Логотип">
             </div>
-            <button class="burger"></button>
-            <button id="themeToggle" class="theme-toggle">
-                <img class="theme_changer_ico" src="{% static 'img/moon_dark.svg' %}">
+            <button id="themeToggle">
+                <img class="moon_svg" src="{% static 'img/moon_dark.svg' %}">
             </button>
         </nav>
         <ul>
-            <li class="no-wrap"><a href="home"><img src="{% static 'img/home_icon_light.svg' %}" alt="Главная страница"
-                                                     style="width: 20px; height: 20px; margin-right: 10px;" class="icon"
-                                                     data-light-src="{% static 'img/home_icon_light.svg' %}"
-                                                     data-dark-src="{% static 'img/home_icon_dark.svg' %}"><span>Главная страница</span></a>
-            </li>
-            <li class="no-wrap"><a href="general_statistics"><img src="{% static 'img/statistic_icon_light.svg' %}"
-                                                      alt="Общая статистика"
-                                                      style="width: 20px; height: 20px; margin-right: 10px;"
-                                                      class="icon"
-                                                      data-light-src="{% static 'img/statistic_icon_light.svg' %}"
-                                                      data-dark-src="{% static 'img/statistic_icon_dark.svg' %}"><span>Общая статистика</span></a>
-            </li>
-            <li class="no-wrap"><a href="demand"><img src="{% static 'img/demand_icon_light.svg' %}"
-                                                         alt="Востребованность"
-                                                         style="width: 20px; height: 20px; margin-right: 10px;"
-                                                         class="icon"
-                                                         data-light-src="{% static 'img/demand_icon_light.svg' %}"
-                                                         data-dark-src="{% static 'img/demand_icon_dark.svg' %}"><span>Востребованность</span></a>
-            </li>
-            <li class="no-wrap"><a href="geography"><img src="{% static 'img/geography_icon_light.svg' %}"
-                                                        alt="География"
-                                                        style="width: 20px; height: 20px; margin-right: 10px;"
-                                                        class="icon"
-                                                        data-light-src="{% static 'img/geography_icon_light.svg' %}"
-                                                        data-dark-src="{% static 'img/geography_icon_dark.svg' %}"><span>География</span></a>
-            </li>
-            <li class="no-wrap"><a href="skills"><img src="{% static 'img/skills_icon_light.svg' %}" alt="Навыки"
-                                                          style="width: 20px; height: 20px; margin-right: 10px;"
-                                                          class="icon"
-                                                          data-light-src="{% static 'img/skills_icon_light.svg' %}"
-                                                          data-dark-src="{% static 'img/skills_icon_dark.svg' %}"><span>Навыки</span></a>
-            </li>
-            <li class="no-wrap"><a href="latest_vacancies"><img src="{% static 'img/job_search_icon_light.svg' %}"
-                                                     alt="Последние вакансии"
-                                                     style="width: 20px; height: 20px; margin-right: 10px;" class="icon"
-                                                     data-light-src="{% static 'img/job_search_icon_light.svg' %}"
-                                                     data-dark-src="{% static 'img/job_search_icon_dark.svg' %}"><span>Последние вакансии</span></a>
-            </li>
+            <li><a href="#home">Главная страница</a></li>
+            <li><a href="#about">Общая статистика</a></li>
+            <li><a href="#services">Востребованность</a></li>
+            <li><a href="#contact">География</a></li>
+            <li><a href="#portfolio">Навыки</a></li>
+            <li><a href="#blog">Последние вакансии</a></li>
         </ul>
-        <div class="github-div2">
-            <a href="https://github.com/ChityaVerepanov/final-django-project">
-                <div class="github-div-icon">
-                    <img src="{% static 'img/github-icon.svg' %}" alt="иконка github" class="github-icon"
-                         data-light-src="{% static 'img/github-icon.svg' %}"
-                         data-dark-src="{% static 'img/github-white-icon.svg' %}">
-                </div>
-                <span class="github-span">GitHub</span>
-            </a>
-        </div>
     </aside>
 </header>
 {% endblock %}
@@ -90,60 +44,19 @@
 {% endblock %}
 </html>
 <script>
-    document.getElementById('themeToggle').addEventListener('click', function () {
-        const currentTheme = document.body.className;
-        const logo = document.querySelector('.logo');
-        const moonIcon = document.querySelector('.theme_changer_ico');
-        const icons = document.querySelectorAll('.icon'); // Получаем все иконки
-        const githubIcon = document.querySelector('.github-icon');
+    document.getElementById('themeToggle').addEventListener('click', function() {
+    const currentTheme = document.body.className;
+    const logo = document.querySelector('.logo');
+    const moonIcon = document.querySelector('.moon_svg');
 
-        if (currentTheme === 'light-theme') {
-            // Смена на темную тему
-            document.body.className = 'dark-theme';
-            logo.src = '{% static "img/logo_white.svg" %}';
-            moonIcon.src = '{% static "img/sun_light.svg" %}';
-
-            // Меняем источники иконок на темные
-            icons.forEach(icon => {
-                icon.src = icon.getAttribute('data-dark-src');
-            });
-            githubIcon.src = githubIcon.getAttribute('data-dark-src');
-        } else {
-            // Смена на светлую тему
-            document.body.className = 'light-theme';
-            logo.src = '{% static "img/logo.svg" %}';
-            moonIcon.src = '{% static "img/moon_dark.svg" %}';
-
-            // Меняем источники иконок на светлые
-            icons.forEach(icon => {
-                icon.src = icon.getAttribute('data-light-src');
-            });
-            githubIcon.src = githubIcon.getAttribute('data-light-src');
-        }
-    });
-
-    const burger = document.querySelector('.burger');
-    const sidebar = document.querySelector('.sidebar');
-
-    burger.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        burger.classList.toggle('active');
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const elements = document.querySelectorAll('.under-promo');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible'); // Добавить класс при попадании в область видимости
-                    observer.unobserve(entry.target); // Удалить наблюдение после появления
-                }
-            });
-        });
-
-        elements.forEach(element => {
-            observer.observe(element); // Начать наблюдение за каждым элементом
-        });
-    });
+    if (currentTheme === 'light-theme') {
+        document.body.className = 'dark-theme';
+        logo.src = '{% static "img/logo_white.svg" %}';
+        moonIcon.src = '{% static "img/sun_light.svg" %}';
+    } else {
+        document.body.className = 'light-theme';
+        logo.src = '{% static "img/logo.svg" %}';
+        moonIcon.src = '{% static "img/moon_dark.svg" %}';
+    }
+});
 </script>
