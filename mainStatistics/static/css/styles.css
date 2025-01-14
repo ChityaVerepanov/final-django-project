@@ -1,52 +1,216 @@
-/* white: background-color: #FFFAFA;
-   black: background-color: #292929;
+/* white: background-color: #EFEFEF;
+   black: background-color: #171717;
 
 /* General Reset */
+
+::selection {
+    background-color: #1B9AAA;
+    color: white;
+}
+
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
+    position: absolute;
     line-height: 1.6;
+    margin-left: 10%;
+    max-width: 80%;
     transition: background-color 0.3s ease;
-    margin-left: 250px; /* Adjust for sidebar width */
     padding: 2rem;
+    /*border: 1px solid blue;*/
 }
 
 body.light-theme {
-    background-color: ##FFFAFA;
-    color: #292929;
+    background-color: #EFEFEF;
+    color: #171717;
 }
 
 body.dark-theme {
-    background-color: #292929;
-    color: #FFFAFA;
+    background-color: #171717;
+    color: #EFEFEF;
 }
+
+body.dark-theme .sidebar {
+    background-color: rgba(14, 14, 16, 0.7); /* Полупрозрачный фон */
+    color: #f0f0f0; /* Цвет текста */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 2px 0 5px rgba(50, 50, 50, 0.2);
+}
+
+
+body.dark-theme .sidebar ul li a {
+    color: #f0f0f0; /* Dark theme link color */
+}
+
+body.dark-theme .sidebar ul li a:hover {
+    background-color: #1B9AAA; /* Dark theme hover background color */
+    color: #fff; /* Dark theme hover text color */
+}
+
 
 #themeToggle {
-  background: none;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  padding: 0;
-  width: 25%;
-  height: auto;
-  margin-top: 40%;
-  align-self: flex-end;
-}
-.moon_svg {
-  width: 80%;
-  height: auto;
-}
-                                                /* Header */
-.sidebar{
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
     padding: 0;
+    width: 8vh;
+    height: auto;
+    right: 4.5%;
+    align-self: flex-end;
 }
 
-nav div{
+.burger {
+    display: block;
+}
+
+.sidebar.collapsed .burger {
+    position: absolute; /* Размещаем кнопку бургера в свернутом состоянии */
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+body.dark-theme .github-span{
+    color: #EFEFEF;
+}
+
+
+.github-icon{
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 20px;
+    position: relative;
+}
+
+.github-div-icon{
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+
+.github-div2{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    bottom: 4%;
+}
+
+.github-div2 a{
+    text-decoration: none;
+}
+
+.github-div{
+    display: flex;
+    position: relative;
+
+}
+
+.github-span{
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0;
+    font-size: 0.6em;
+    color: #171717;
+}
+.sidebar.collapsed .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 8.5%;
+}
+
+.sidebar.collapsed #themeToggle {
+    position: relative; /* Размещаем переключатель темы в свернутом состоянии */
+    width: 4em;
+    height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.theme_changer_ico {
+    width: 70%;
+    height: auto;
+}
+
+
+.burger {
+    border: none;
+    background: transparent;
+    width: 22px;
+    height: 17.33px;
+    align-self: flex-start;
+    position: absolute;
+    right: 11%;
+    top: 3%;
+    cursor: pointer;
+}
+
+
+body.dark-theme .burger.active::before {
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0);
+}
+
+.burger.active::before {
+    top: 11px;
+    transform: rotate(45deg);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0);
+    transition: box-shadow .15s, top .3s, transform .3s .15s;
+}
+
+body.dark-theme .burger::before,
+body.dark-theme .burger::after {
+    background: #76cfcc; /* Цвет бургер-меню белый в темной теме */
+}
+
+.burger::before,
+.burger::after {
+    content: '';
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2.67px; /* 4px / 1.5 */
+    border-radius: 10px;
+    background: #76cfcc;
+}
+
+
+.burger.active::after {
+    bottom: 4.5px;
+    transform: rotate(-45deg);
+    transition: bottom .3s, transform .3s .15s;
+}
+
+.burger::before {
+    top: 0;
+    box-shadow: 0 7.33px 0 #76cfcc;
+    transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+
+.burger::after {
+    bottom: 0;
+    transition: bottom .3s .15s, transform .3s;
+}
+
+/* Header */
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+
+nav div {
     /*border: 1px solid green;*/
     display: flex;
     justify-content: center;
@@ -64,10 +228,10 @@ nav div{
     justify-content: flex-end;
 }
 
-.sidebar nav{
+.sidebar nav {
     /*border: 2px solid blue;*/
     display: flex;
-    flex-wrap: no-wrap;
+    flex-wrap: nowrap;
     align-items: center;
     height: 20%;
 }
@@ -80,13 +244,35 @@ header nav div:hover {
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    height: 100vh;
+    width: 300px;
+    height: 90vh;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 25px;
     /*margin-top: 2rem;*/
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background: rgba(255, 255, 255, 0.3); /* Полупрозрачный фон */
+    backdrop-filter: blur(10px); /* Размытие заднего фона */
+    border-radius: 15px; /* Закругление углов (по желанию) */
+    z-index: 2;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar.collapsed ul li a {
+    justify-content: center;
+}
+
+.sidebar.collapsed ul li a span {
+    display: none; /* Скрываем текст */
+}
+
+.sidebar ul li a:hover {
+    background-color: #e0e0e0; /* Light theme hover background color */
 }
 
 .sidebar ul {
@@ -94,36 +280,242 @@ header nav div:hover {
     padding: 0;
 }
 
+.no-wrap {
+    white-space: nowrap;
+    padding: 3px;
+}
+
+.wrap {
+    white-space: pre;
+    vertical-align: middle;
+}
+
 .sidebar ul li {
     margin: 1rem 0;
+
+}
+
+.icon {
+    position: relative;
+    top: 2px;
 }
 
 .sidebar ul li a {
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 0.5rem 1rem;
     display: block;
     transition: background-color 0.3s ease;
     border-radius: 15px;
+    color: #1a1a1a;
+
 }
 
-.sidebar ul li a:hover {
+.sidebar.collapsed ul:before{
+    display: block;
+    background-color: black;
+    content: "";
+    position: absolute;
+    margin-top: -10px;
+    width: 60%;
+    left: 20%;
+    height: 1px;
+}
+
+.sidebar ul:before {
+    display: none;
+}
+
+body.dark-theme .sidebar ul:before {
     background-color: #FFFAFA;
-    color: black;
-    border-radius: 15px;
+}
+
+.sidebar ul:after {
+    content: '';
+    display: block;
+    width: 50%; /* Ширина полоски */
+    height: 1px; /* Высота полоски */
+    background-color: #171717; /* Цвет полоски */
+    position: absolute;
+    bottom: 12%; /* Позиция полоски */
+    left: 25%; /* Позиция полоски */
+}
+
+body.dark-theme .sidebar ul:after {
+    background-color: #EFEFEF;
 }
 
 /* Footer */
 footer {
     text-align: center;
     padding: 1rem 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: absolute;
+    margin-top: 5vh;
+    width: 94%;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1;
 }
 
 footer p {
     margin: 0;
     font-size: 0.9rem;
 }
+
+/*-------------------------------Content----------------------------------*/
+
+.promo-title {
+    font-family: "work sans", serif;
+    overflow: hidden;
+    border-right: .1em solid #1B9AAA;
+    white-space: nowrap;
+    position: absolute;
+    top: 32%;
+    font-size: 7.4rem;
+    z-index: 1;
+    animation: typing 2s steps(15, end) forwards,
+    blinking 0.75s infinite;
+}
+
+.promo-title::before,
+.promo-title::after {
+    font-weight: 400;
+    content: "8f#e3$6";
+    position: absolute;
+    font-size: 0.7rem; /* Размер значка */
+}
+
+.promo-title::before {
+    top: 30px; /* Положение в верхнем левом углу */
+    left: 0;
+}
+
+.promo-title::after {
+    content: "#21!@3!";
+    bottom: 10px; /* Положение в нижнем правом углу */
+    right: 0;
+}
+
+.promo-container{
+    position: relative;
+    display: inline-block;
+    height: 95vh;
+    margin-bottom: 5vh;
+    border-radius: 35px;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blinking {
+    from {
+        border-color: transparent
+    }
+    to {
+        border-color: #1B9AAA
+    }
+}
+
+.under-promo-title{
+    font-size: 2.5rem;
+    padding-bottom: 1%;
+}
+
+.under-promo {
+    font-size: 22px;
+    opacity: 0; /* Скрыть текст */
+    transform: translateY(20px); /* Сдвинуть вниз */
+    transition: opacity 1s ease, transform 0.5s ease; /* Плавный переход */
+    margin-bottom: 1.5%;
+    margin-top: 1.5%;
+}
+
+.under-promo li{
+    margin-bottom: 2.5%;
+    list-style-type: none;
+}
+
+.under-promo-container {
+    border: 1.5px ridge #818080D8;
+    border-radius: 15px;
+    padding: 2% 2%;
+}
+
+.list-number{
+    color: #1B9AAA;
+    font-weight: bold;
+}
+
+.under-promo.visible {
+    opacity: 1; /* Показать текст */
+    transform: translateY(0); /* Вернуть на место */
+}
+
+.block-title{
+    color: #171717;
+    font-size: 2.5rem;
+    padding-left: 1.5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.under-promo-photo-block{
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: rgba(221, 221, 221, 0.85);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.container-with-photo{
+    display: flex;
+    /*border: 1px solid blue;*/
+    border-radius: 15px;
+    padding: 3%;
+    background-color: rgb(205, 204, 204);
+    font-weight: 500;
+}
+
+
+body.dark-theme .under-promo-photo-block{
+    /*border: 1px solid red;*/
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: rgba(129, 128, 128, 0.85);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .container-with-photo{
+    color: #d8d8d8;
+    display: flex;
+    /*border: 1px solid blue;*/
+    border-radius: 15px;
+    padding: 3% 3%;
+    background-color: rgba(48, 48, 48, 0.61);
+    font-weight: 500;
+}
+
+.under-promo-image{
+    align-self: center;
+    width: auto;
+    height: 45vh;
+    margin-left: 25px;
+    border-radius: 15px;
+}
+
+body.dark-theme .under-promo-developers{
+    background-color: rgba(48, 48, 48, 0.61);
+    padding: 3%;
+    border-radius: 15px;
+}
+.under-promo-developers{
+    background-color: rgba(191, 191, 191, 0.61);
+    padding: 3%;
+    border-radius: 15px;
+}
+
