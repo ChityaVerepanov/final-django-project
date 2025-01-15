@@ -1,6 +1,6 @@
 from django.db.models import Count
 from django.db.models.functions import ExtractYear
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.context_processors import request
 import json
 from django.db.models import Count
@@ -14,6 +14,9 @@ def home(request):
     #main()
     professions = Profession.objects.all()
     return render(request, 'main.html', {'professions': professions})
+
+def redirect_to_home(request):
+    return redirect('/home')
 
 def return_general_statistics(request):
     vacancies_per_year = Profession.objects.annotate(year=ExtractYear('published_at')).values('year').annotate(

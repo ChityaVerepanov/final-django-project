@@ -274,7 +274,27 @@ header nav div:hover {
 }
 
 .sidebar ul li a:hover {
-    background-color: #e0e0e0; /* Light theme hover background color */
+    background-color: #76cfcc; /* Light theme hover background color */
+}
+
+.tooltip {
+    position: fixed;
+    padding: 5px 10px;
+    text-wrap: nowrap;
+    border: 1px solid rgba(92, 92, 92, 0.2); /* Полупрозрачная граница */
+    border-radius: 7.5px;
+    display: none;
+    z-index: 100;
+    pointer-events: none;
+    background: rgb(239, 239, 239); /* Полупрозрачный фон */
+    box-shadow: 0 4px 15px rgba(55, 55, 55, 0.2); /* Тень для глубины */
+}
+
+body.dark-theme .tooltip {
+    color: rgba(198, 198, 198, 0.93);
+    background: rgb(34, 34, 37); /* Полупрозрачный фон */
+    box-shadow: 0 4px 15px rgba(73, 73, 73, 0.2); /* Тень для глубины */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Полупрозрачная граница */
 }
 
 .sidebar ul {

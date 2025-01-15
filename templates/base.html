@@ -29,39 +29,39 @@
             </button>
         </nav>
         <ul>
-            <li class="no-wrap"><a href="home"><img src="{% static 'img/home_icon_light.svg' %}" alt="Главная страница"
+            <li class="no-wrap" data-tooltip="Главная страница"><a href="home"><img src="{% static 'img/home_icon_light.svg' %}" alt="Главная страница"
                                                      style="width: 20px; height: 20px; margin-right: 10px;" class="icon"
                                                      data-light-src="{% static 'img/home_icon_light.svg' %}"
                                                      data-dark-src="{% static 'img/home_icon_dark.svg' %}"><span>Главная страница</span></a>
             </li>
-            <li class="no-wrap"><a href="general_statistics"><img src="{% static 'img/statistic_icon_light.svg' %}"
+            <li class="no-wrap" data-tooltip="Общая статистика"><a href="general_statistics"><img src="{% static 'img/statistic_icon_light.svg' %}"
                                                       alt="Общая статистика"
                                                       style="width: 20px; height: 20px; margin-right: 10px;"
                                                       class="icon"
                                                       data-light-src="{% static 'img/statistic_icon_light.svg' %}"
                                                       data-dark-src="{% static 'img/statistic_icon_dark.svg' %}"><span>Общая статистика</span></a>
             </li>
-            <li class="no-wrap"><a href="demand"><img src="{% static 'img/demand_icon_light.svg' %}"
+            <li class="no-wrap" data-tooltip="Востребованность"><a href="demand"><img src="{% static 'img/demand_icon_light.svg' %}"
                                                          alt="Востребованность"
                                                          style="width: 20px; height: 20px; margin-right: 10px;"
                                                          class="icon"
                                                          data-light-src="{% static 'img/demand_icon_light.svg' %}"
                                                          data-dark-src="{% static 'img/demand_icon_dark.svg' %}"><span>Востребованность</span></a>
             </li>
-            <li class="no-wrap"><a href="geography"><img src="{% static 'img/geography_icon_light.svg' %}"
+            <li class="no-wrap" data-tooltip="География"><a href="geography"><img src="{% static 'img/geography_icon_light.svg' %}"
                                                         alt="География"
                                                         style="width: 20px; height: 20px; margin-right: 10px;"
                                                         class="icon"
                                                         data-light-src="{% static 'img/geography_icon_light.svg' %}"
                                                         data-dark-src="{% static 'img/geography_icon_dark.svg' %}"><span>География</span></a>
             </li>
-            <li class="no-wrap"><a href="skills"><img src="{% static 'img/skills_icon_light.svg' %}" alt="Навыки"
+            <li class="no-wrap" data-tooltip="Навыки"><a href="skills"><img src="{% static 'img/skills_icon_light.svg' %}" alt="Навыки"
                                                           style="width: 20px; height: 20px; margin-right: 10px;"
                                                           class="icon"
                                                           data-light-src="{% static 'img/skills_icon_light.svg' %}"
                                                           data-dark-src="{% static 'img/skills_icon_dark.svg' %}"><span>Навыки</span></a>
             </li>
-            <li class="no-wrap"><a href="latest_vacancies"><img src="{% static 'img/job_search_icon_light.svg' %}"
+            <li class="no-wrap" data-tooltip="Последние вакансии"><a href="latest_vacancies"><img src="{% static 'img/job_search_icon_light.svg' %}"
                                                      alt="Последние вакансии"
                                                      style="width: 20px; height: 20px; margin-right: 10px;" class="icon"
                                                      data-light-src="{% static 'img/job_search_icon_light.svg' %}"
@@ -78,6 +78,7 @@
                 <span class="github-span">GitHub</span>
             </a>
         </div>
+        <div class="tooltip" id="tooltip"></div>
     </aside>
 </header>
 {% endblock %}
@@ -141,6 +142,23 @@
 
         // Устанавливаем cookie с новой темой
         document.cookie = "theme=" + newTheme + "; path=/"; // path=/ чтобы cookie было доступно на всех страницах
+    });
+
+    const tooltip = document.getElementById('tooltip');
+    const items = document.querySelectorAll('.sidebar ul li');
+
+    items.forEach(item => {
+        item.addEventListener('mouseenter', function (e) {
+            const tooltipText = this.getAttribute('data-tooltip');
+            tooltip.textContent = tooltipText;
+            tooltip.style.display = 'block';
+            tooltip.style.left = 'calc(100% + 10px)'; // Позиция справа от элемента
+            tooltip.style.top = (e.target.getBoundingClientRect().top - 30) + 'px';
+        });
+
+        item.addEventListener('mouseleave', function () {
+            tooltip.style.display = 'none';
+        });
     });
 
     const burger = document.querySelector('.burger');
