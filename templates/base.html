@@ -63,7 +63,7 @@
             </li>
             <li class="no-wrap" data-tooltip="Последние вакансии"><a href="latest_vacancies"><img src="{% static 'img/job_search_icon_light.svg' %}"
                                                      alt="Последние вакансии"
-                                                     style="width: 20px; height: 20px; margin-right: 10px;" class="icon"
+                                                     style="width: 20px; height: 20px; margin-left: 1px;" class="icon"
                                                      data-light-src="{% static 'img/job_search_icon_light.svg' %}"
                                                      data-dark-src="{% static 'img/job_search_icon_dark.svg' %}"><span>Последние вакансии</span></a>
             </li>
@@ -142,6 +142,23 @@
 
         // Устанавливаем cookie с новой темой
         document.cookie = "theme=" + newTheme + "; path=/"; // path=/ чтобы cookie было доступно на всех страницах
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Получаем текущий URL
+        const currentUrl = window.location.pathname;
+
+        // Находим все элементы <li>
+        const menuItems = document.querySelectorAll('.sidebar ul li a');
+
+        // Перебираем элементы и добавляем класс active к текущему
+        menuItems.forEach(item => {
+            // Убираем начальный слэш для сравнения
+            const href = item.getAttribute('href').startsWith('/') ? item.getAttribute('href').slice(1) : item.getAttribute('href');
+            if (href === currentUrl.slice(1)) { // Убираем начальный слэш из currentUrl
+                item.parentElement.classList.add('active');
+            }
+        });
     });
 
     const tooltip = document.getElementById('tooltip');

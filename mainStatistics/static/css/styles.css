@@ -41,7 +41,7 @@ body.dark-theme .sidebar {
     color: #f0f0f0; /* Цвет текста */
     backdrop-filter: blur(10px); /* Размытие фона */
     border-radius: 10px; /* Скругление углов */
-    box-shadow: 2px 0 5px rgba(50, 50, 50, 0.2);
+    box-shadow: 1px 0 5px rgba(188, 188, 188, 0.2);
 }
 
 
@@ -259,6 +259,16 @@ header nav div:hover {
     backdrop-filter: blur(10px); /* Размытие заднего фона */
     border-radius: 15px; /* Закругление углов (по желанию) */
     z-index: 2;
+}
+
+.sidebar ul li.active {
+    border: 1px solid #76cfcc;
+    background-color: rgba(118, 207, 204, 0.59); /* Цвет фона для активного элемента */
+    border-radius: 15px;
+}
+
+body.dark-theme .sidebar ul li.active {
+    background-color: rgba(118, 207, 204, 0.44);
 }
 
 .sidebar.collapsed {
@@ -543,7 +553,6 @@ body.dark-theme .under-promo-developers{
 /*------------------------------Demand---------------------------------*/
 .pages-title-centered-container{
     display: flex;
-    /*border: 1px solid red;*/
     justify-content: center;
     margin-bottom: 5%;
     margin-top: 2%;
@@ -605,7 +614,7 @@ body.dark-theme .pages-graph-div{
 
 .pages-graph{
     background-color: #bfbfbf9c;
-    padding: 5%;
+    padding: 1% 5% 5% 5%;
     border-radius: 15px;
 }
 
@@ -617,4 +626,39 @@ body.dark-theme .pages-graph{
     padding: 1%;
     font-size: 1.2rem;
     text-align: center;
+}
+
+.pages-hh-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+    gap: 20px; /* Расстояние между элементами */
+    max-width: 100%;
+}
+
+.job-listing {
+    border: 1px solid #ccc;
+    background-color: #ddddddd9;
+    padding: 5%;
+    margin: 2% 0;
+    border-radius: 15px;
+}
+
+body.dark-theme .job-listing{
+    border: 1px solid rgba(172, 172, 172, 0.85);
+    background-color: rgba(87, 86, 86, 0.85);
+}
+
+.job-listing a {
+    font-weight: bold;
+    color: #0dc1ba;
+    font-size: 1.35em;
+    text-decoration: none;
+}
+
+.job-listing a:hover {
+    text-decoration : underline;
+}
+
+.job-listing div {
+    margin: 2% 0;
 }

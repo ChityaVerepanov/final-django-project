@@ -10,40 +10,86 @@
         <h1 class="demand-main-title">Востребованность</h1>
     </div>
 </div>
-<h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<canvas id="vacanciesChart" width="400" height="200"></canvas>
-<script>
-    // Передаем данные из Django в JavaScript
-    const vacanciesData = {{ vacancies_per_year|safe }};
 
-    // Подготовка данных для графика
-    const labels = vacanciesData.map(entry => entry.year);
-    const data = vacanciesData.map(entry => entry.count);
+<div class="pages-graph-div">
+    <div class="pages-graph-title">
+        <h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
+    </div>
+    <div class="pages-graph">
+        <canvas id="vacanciesChart" width="400" height="200"></canvas>
+        <script>
+            // Передаем данные о вакансиях из Django в JavaScript
+            const vacanciesData = {{ vacancies_per_year|safe }};
 
-    // Создание графика
-    const ctx = document.getElementById('vacanciesChart').getContext('2d');
-    const vacanciesChart = new Chart(ctx, {
-        type: 'line', // Тип графика (линейный)
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Количество вакансий',
-                data: data,
-                borderColor: 'rgb(27,154,170)',
-                backgroundColor: 'rgba(27,154,170,0.11)',
-                fill: true,
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+            // Подготовка данных для графика вакансий
+            const labelsVacancies = vacanciesData.map(entry => entry.year);
+            const dataVacancies = vacanciesData.map(entry => entry.count);
+
+            // Создание графика вакансий
+            const ctxVacancies = document.getElementById('vacanciesChart').getContext('2d');
+            const vacanciesChart = new Chart(ctxVacancies, {
+                type: 'line',
+                data: {
+                    labels: labelsVacancies,
+                    datasets: [{
+                        label: 'Количество вакансий',
+                        data: dataVacancies,
+                        borderColor: 'rgb(27,154,170)',
+                        backgroundColor: 'rgba(27,154,170,0.11)',
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            }
-        }
-    });
-</script>
+            });
+        </script>
+    </div>
+</div>
 
+<div class="pages-graph-div">
+    <div class="pages-graph-title">
+        <h2 class="pages-main-subtitle">Средняя зарплата по годам</h2>
+    </div>
+    <div class="pages-graph">
+        <canvas id="salaryChart" width="400" height="200"></canvas>
+        <script>
+            // Подготовка данных для графика средней зарплаты
+            const salaryData = {{ salary_data|safe }};
+            const labelsSalaries = Object.keys(salaryData);
+            const dataSalaries = Object.values(salaryData);
+
+            // Создание графика средней зарплаты
+            const ctxSalaries = document.getElementById('salaryChart').getContext('2d');
+            const salaryChart = new Chart(ctxSalaries, {
+                type: 'line',
+                data: {
+                    labels: labelsSalaries,
+                    datasets: [{
+                        label: 'Средняя зарплата',
+                        data: dataSalaries,
+                        borderColor: 'rgb(255,99,132)',
+                        backgroundColor: 'rgba(255,99,132,0.2)',
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</div>
 {% endblock %}

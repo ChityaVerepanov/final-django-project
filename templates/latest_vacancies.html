@@ -10,4 +10,31 @@
         <h1 class="demand-main-title">Последние вакансии</h1>
     </div>
 </div>
+<div class="pages-hh-container">
+    {% for i in items %}
+    <div>
+        <div class="job-listing">
+            <div>
+                <a href="{{ i.link }}">{{ i.title }}</a>
+            </div>
+            <div>{{ i.company }}</div>
+            <div>
+                <b>
+                    {% if i.salary.from == 'Отсутствует' and i.salary.to == 'Отсутствует' %}
+                    Отсутствует
+                    {% else %}
+                    {% if i.salary.from != 'Отсутствует' %}
+                    От {{ i.salary.from }}
+                    {% endif %}
+                    {% if i.salary.to != 'Отсутствует' %}
+                    До {{ i.salary.to }}
+                    {% endif %}
+                    {{ i.salary.currency }}
+                    {% endif %}
+                </b>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
