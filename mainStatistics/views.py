@@ -22,9 +22,10 @@ def return_general_statistics(request):
     vacancies_data = list(vacancies_per_year)
 
     top_skills = get_top_skills_all_years()
+    current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
 
     return render(request, 'general_statistics.html',
-                  context={"vacancies_per_year": vacancies_data, "top_skills": top_skills})
+                  context={"vacancies_per_year": vacancies_data, "top_skills": top_skills, 'current_theme': current_theme})
 
 def get_top_skills_all_years():
     # Получаем все профессии
@@ -49,8 +50,9 @@ def return_demand(request):
         count=Count('id')).order_by('year')
 
     vacancies_data = list(vacancies_per_year)
+    current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
 
-    return render(request, "demand.html", {"vacancies_per_year": vacancies_data})
+    return render(request, "demand.html", {"vacancies_per_year": vacancies_data, 'current_theme': current_theme})
 
 def return_geography(request):
     # Получаем данные о вакансиях по городам
@@ -58,13 +60,16 @@ def return_geography(request):
 
     # Преобразуем данные в JSON
     vacancies_data_json = json.dumps(list(vacancies_by_city))
+    current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
 
     # Возвращаем страницу с данными
-    return render(request, "geography.html", {'vacancies_by_city_json': vacancies_data_json})
+    return render(request, "geography.html", {'vacancies_by_city_json': vacancies_data_json, 'current_theme': current_theme})
 
 def return_skills(request):
     top_skills = get_top_skills_all_years()
-    return render(request, "skills.html", {"top_skills": top_skills})
+    current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
+    return render(request, "skills.html", {"top_skills": top_skills, 'current_theme': current_theme})
 
 def return_latest_vacancies(request):
-    return render(request, "latest_vacancies.html")
+    current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
+    return render(request, "latest_vacancies.html",{'current_theme': current_theme})

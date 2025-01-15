@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
+
 </head>
 {% block header %}
 <header>
@@ -80,7 +81,7 @@
     </aside>
 </header>
 {% endblock %}
-<body class="light-theme">
+<body class="{{ current_theme }}">
 {% block content %}
 {% endblock %}
 </body>
@@ -91,36 +92,55 @@
 {% endblock %}
 </html>
 <script>
-    document.getElementById('themeToggle').addEventListener('click', function () {
-        const currentTheme = document.body.className;
+    // Функция для установки темы
+    function setTheme(theme) {
         const logo = document.querySelector('.logo');
         const moonIcon = document.querySelector('.theme_changer_ico');
-        const icons = document.querySelectorAll('.icon'); // Получаем все иконки
+        const icons = document.querySelectorAll('.icon');
         const githubIcon = document.querySelector('.github-icon');
 
-        if (currentTheme === 'light-theme') {
-            // Смена на темную тему
-            document.body.className = 'dark-theme';
+        document.body.className = theme;
+
+        if (theme === 'dark-theme') {
             logo.src = '{% static "img/logo_white.svg" %}';
             moonIcon.src = '{% static "img/sun_light.svg" %}';
-
-            // Меняем источники иконок на темные
             icons.forEach(icon => {
                 icon.src = icon.getAttribute('data-dark-src');
             });
             githubIcon.src = githubIcon.getAttribute('data-dark-src');
         } else {
-            // Смена на светлую тему
-            document.body.className = 'light-theme';
             logo.src = '{% static "img/logo.svg" %}';
             moonIcon.src = '{% static "img/moon_dark.svg" %}';
-
-            // Меняем источники иконок на светлые
             icons.forEach(icon => {
                 icon.src = icon.getAttribute('data-light-src');
             });
             githubIcon.src = githubIcon.getAttribute('data-light-src');
         }
+
+        localStorage.setItem('theme', theme);
+    }
+
+    // Функция для получения значения cookie
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Проверяем сохраненную тему при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function () {
+        const savedTheme = getCookie('theme') || 'light-theme'; // Загружаем тему из cookies или по умолчанию светлая
+        setTheme(savedTheme);
+    });
+
+    // Обработчик события для переключения темы
+    document.getElementById('themeToggle').addEventListener('click', function () {
+        const currentTheme = document.body.className;
+        const newTheme = currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
+        setTheme(newTheme);
+
+        // Устанавливаем cookie с новой темой
+        document.cookie = "theme=" + newTheme + "; path=/"; // path=/ чтобы cookie было доступно на всех страницах
     });
 
     const burger = document.querySelector('.burger');
