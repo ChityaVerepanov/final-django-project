@@ -10,33 +10,135 @@
         <h1 class="demand-main-title">Общая статистика</h1>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="pages-graph-div">
-    <div class="pages-graph-title">
-        <h2 class="pages-main-subtitle">{ Динамика количества вакансий по годам }</h2>
-    </div>
+
+
+<div class="pages-graph-title">
+    <h2 class="pages-main-subtitle">Динамика уровня зарплат по годам</h2>
+</div>
+<div class="pages-graph">
+    <canvas id="salaryChart" width="400" height="200"></canvas>
+    <script>
+        // Подготовка данных для графика средней зарплаты
+        const salaryData = {{ salary_data|safe }};
+        const labelsSalaries = Object.keys(salaryData);
+        const dataSalaries = Object.values(salaryData);
+
+        // Создание графика средней зарплаты
+        const ctxSalaries = document.getElementById('salaryChart').getContext('2d');
+        const salaryChart = new Chart(ctxSalaries, {
+            type: 'line',
+            data: {
+                labels: labelsSalaries,
+                datasets: [{
+                    label: 'Средняя зарплата',
+                    data: dataSalaries,
+                    borderColor: 'rgb(255,99,132)',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+<div class="pages-graph-title">
+    <h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
+</div>
+<div class="pages-graph">
+    <canvas id="vacanciesChart" width="400" height="200"></canvas>
+    <script>
+        // Передаем данные о вакансиях из Django в JavaScript
+        const vacanciesData = {{ vacancies_per_year|safe }};
+
+        // Подготовка данных для графика вакансий
+        const labelsVacancies = vacanciesData.map(entry => entry.year);
+        const dataVacancies = vacanciesData.map(entry => entry.count);
+
+        // Создание графика вакансий
+        const ctxVacancies = document.getElementById('vacanciesChart').getContext('2d');
+        const vacanciesChart = new Chart(ctxVacancies, {
+            type: 'line',
+            data: {
+                labels: labelsVacancies,
+                datasets: [{
+                    label: 'Количество вакансий',
+                    data: dataVacancies,
+                    borderColor: 'rgb(27,154,170)',
+                    backgroundColor: 'rgba(27,154,170,0.11)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+
+<div>
+    <h2 class="pages-main-subtitle">Доля вакансий по городам</h2>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="pages-graph">
-        <canvas id="vacanciesChart" width="400" height="200"></canvas>
-        <script>
-            // Передаем данные из Django в JavaScript
-            const vacanciesData = {{vacancies_per_year | safe}};
+        <canvas id="cityChart" width="400" height="200"></canvas>
+    </div>
+
+    <h2 class="pages-main-subtitle">Таблица вакансий по городам</h2>
+    <table id ="pagesVacancyTable" class="pagesTable" border="1">
+        <thead>
+        <tr>
+            <th>Город</th>
+            <th>Количество вакансий</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="showMoreDiv">
+        <button id="showMoreButton" style="margin-top: 10px;">Посмотреть больше</button>
+    </div>
+
+    <script>
+        // Получаем данные о вакансиях из Django
+        const vacanciesByCityData = {{ vacancies_by_city_json|safe }};
+        console.log(vacanciesByCityData); // Проверка данных в консоли
+
+        // Проверяем, есть ли данные
+        if (!vacanciesByCityData || vacanciesByCityData.length === 0) {
+            console.error('Нет данных для отображения');
+        } else {
+            // Фильтруем данные только для графика, исключая значения менее 5
+            const filteredDataForChart = vacanciesByCityData.filter(entry => entry.count >= 50);
 
             // Подготовка данных для графика
-            const labels = vacanciesData.map(entry => entry.year);
-            const data = vacanciesData.map(entry => entry.count);
+            const labels = filteredDataForChart.map(entry => entry.area_name || 'Не указано'); // Обработка пустых полей
+            const data = filteredDataForChart.map(entry => entry.count);
 
             // Создание графика
-            const ctx = document.getElementById('vacanciesChart').getContext('2d');
-            const vacanciesChart = new Chart(ctx, {
-                type: 'line', // Тип графика (линейный)
+            const ctx = document.getElementById('cityChart').getContext('2d');
+            const cityChart = new Chart(ctx, {
+                type: 'bar', // Тип графика: столбчатая диаграмма
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Количество вакансий',
+                        label: 'Количество вакансий по городам',
                         data: data,
-                        borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -48,54 +150,110 @@
                     }
                 }
             });
-        </script>
-    </div>
-</div>
-<div class="pages-graph-div">
-    <div class="pages-graph-title">
-        <h2 class="pages-main-subtitle">{ ТОП-20 навыков }</h2>
-    </div>
-    <div class="pages-graph">
-        <canvas id="skillsChart" width="400" height="200"></canvas>
 
-        <script>
-            // Данные для графика ТОП-20 навыков
-            const topSkills = {{top_skills | safe}}; // Получаем данные из контекста
-            const skills = topSkills.map(skill => skill[0]); // Извлекаем названия навыков
-            const skillCounts = topSkills.map(skill => skill[1]); // Извлекаем количество упоминаний навыков
+            // Заполнение таблицы данными (все данные)
+            const tableBody = document.getElementById('pagesVacancyTable').getElementsByTagName('tbody')[0];
 
-            // Проверка данных в консоли
-            console.log(skills);
-            console.log(skillCounts);
-
-            // Создание графика ТОП-20 навыков
-            const ctxSkills = document.getElementById('skillsChart').getContext('2d');
-            const skillsChart = new Chart(ctxSkills, {
-                type: 'bar', // Тип графика: столбчатая диаграмма
-                data: {
-                    labels: skills,
-                    datasets: [{
-                        label: 'Частота навыков',
-                        data: skillCounts,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'ТОП-20 навыков'
-                        }
-                    }
-                }
+            // Отображаем только первые 10 значений
+            const initialCount = 10;
+            vacanciesByCityData.slice(0, initialCount).forEach(entry => {
+                const row = tableBody.insertRow();
+                const cellCity = row.insertCell(0);
+                const cellCount = row.insertCell(1);
+                cellCity.textContent = entry.area_name || 'Не указано'; // Название города
+                cellCount.textContent = entry.count; // Количество вакансий
             });
-        </script>
-    </div>
+
+            // Переменная для отслеживания текущего количества отображаемых строк
+            let displayedCount = initialCount;
+
+            // Обработчик для кнопки "Посмотреть больше"
+            const showMoreButton = document.getElementById('showMoreButton');
+            showMoreButton.addEventListener('click', () => {
+                // Удаляем кнопку
+                showMoreButton.style.display = 'none';
+
+                // Заполняем оставшиеся данные
+                vacanciesByCityData.slice(displayedCount).forEach(entry => {
+                    const row = tableBody.insertRow();
+                    const cellCity = row.insertCell(0);
+                    const cellCount = row.insertCell(1);
+                    cellCity.textContent = entry.area_name || 'Не указано'; // Название города
+                    cellCount.textContent = entry.count; // Количество вакансий
+                });
+
+                // Обновляем количество отображаемых строк
+                displayedCount = vacanciesByCityData.length; // Теперь показываем все данные
+            });
+        }
+    </script>
 </div>
+
+
+<h2 class="pages-main-subtitle">ТОП-20 навыков по годам</h2>
+<div class="pages-graph">
+    <canvas id="skillsChart" width="400" height="200"></canvas>
+</div>
+
+<h2 class="pages-main-subtitle">Табличное представление навыков</h2>
+<table id="pagesSkillsTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Навык</th>
+        <th>Частота</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут добавлены здесь с помощью JavaScript -->
+    </tbody>
+</table>
+
+<script>
+    // Данные для графика ТОП-20 навыков
+    const topSkills = {{top_skills | safe}}; // Получаем данные из контекста
+    const skills = topSkills.map(skill => skill[0]); // Извлекаем названия навыков
+    const skillCounts = topSkills.map(skill => skill[1]); // Извлекаем количество упоминаний навыков
+
+    // Проверка данных в консоли
+    console.log(skills);
+    console.log(skillCounts);
+
+    // Создание графика ТОП-20 навыков
+    const ctxSkills = document.getElementById('skillsChart').getContext('2d');
+    const skillsChart = new Chart(ctxSkills, {
+        type: 'bar', // Тип графика: столбчатая диаграмма
+        data: {
+            labels: skills,
+            datasets: [{
+                label: 'Частота навыков',
+                data: skillCounts,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'ТОП-20 навыков'
+                }
+            }
+        }
+    });
+
+    // Заполнение таблицы данными
+    const tableBody = document.getElementById('pagesSkillsTable').getElementsByTagName('tbody')[0];
+    topSkills.forEach(skill => {
+        const row = tableBody.insertRow();
+        const cellSkill = row.insertCell(0);
+        const cellCount = row.insertCell(1);
+        cellSkill.textContent = skill[0]; // Название навыка
+        cellCount.textContent = skill[1]; // Частота
+    });
+</script>
 {% endblock %}

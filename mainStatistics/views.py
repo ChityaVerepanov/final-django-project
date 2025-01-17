@@ -46,12 +46,16 @@ def return_general_statistics(request):
         count=Count('id')).order_by('year')
 
     vacancies_data = list(vacancies_per_year)
+    salary_data = get_salary_dynamics()
+
+    vacancies_by_city = Profession.objects.values('area_name').annotate(count=Count('id')).order_by('-count')
+    vacancies_data_json = json.dumps(list(vacancies_by_city))
 
     top_skills = get_top_skills_all_years()
     current_theme = request.COOKIES.get('theme', 'light-theme')  # Получаем тему из cookies
 
     return render(request, 'general_statistics.html',
-                  context={"vacancies_per_year": vacancies_data, "top_skills": top_skills, 'current_theme': current_theme})
+                  context={"vacancies_per_year": vacancies_data, "salary_data": salary_data, 'vacancies_by_city_json': vacancies_data_json, "top_skills": top_skills, 'current_theme': current_theme})
 
 
 

@@ -11,8 +11,25 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<h2 class="pages-main-subtitle">ТОП-20 навыков для web-разработчика</h2>
-<canvas id="skillsChart" width="400" height="200"></canvas>
+
+<h2 class="pages-main-subtitle">ТОП-20 навыков по годам</h2>
+<div class="pages-graph">
+    <canvas id="skillsChart" width="400" height="200"></canvas>
+</div>
+
+<h2 class="pages-main-subtitle">Табличное представление навыков</h2>
+<table id="pagesTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Навык</th>
+        <th>Частота</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут добавлены здесь с помощью JavaScript -->
+    </tbody>
+</table>
+
 <script>
     // Данные для графика ТОП-20 навыков
     const topSkills = {{top_skills | safe}}; // Получаем данные из контекста
@@ -49,6 +66,16 @@
                 }
             }
         }
+    });
+
+    // Заполнение таблицы данными
+    const tableBody = document.getElementById('pagesTable').getElementsByTagName('tbody')[0];
+    topSkills.forEach(skill => {
+        const row = tableBody.insertRow();
+        const cellSkill = row.insertCell(0);
+        const cellCount = row.insertCell(1);
+        cellSkill.textContent = skill[0]; // Название навыка
+        cellCount.textContent = skill[1]; // Частота
     });
 </script>
 {% endblock %}

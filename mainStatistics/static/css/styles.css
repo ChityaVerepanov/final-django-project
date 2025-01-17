@@ -78,12 +78,12 @@ body.dark-theme .sidebar ul li a:hover {
     transform: translateX(-50%);
 }
 
-body.dark-theme .github-span{
+body.dark-theme .github-span {
     color: #EFEFEF;
 }
 
 
-.github-icon{
+.github-icon {
     display: flex;
     justify-content: center;
     height: auto;
@@ -91,13 +91,13 @@ body.dark-theme .github-span{
     position: relative;
 }
 
-.github-div-icon{
+.github-div-icon {
     display: flex;
     justify-content: center;
     width: 100%
 }
 
-.github-div2{
+.github-div2 {
     position: absolute;
     display: flex;
     width: 100%;
@@ -106,17 +106,17 @@ body.dark-theme .github-span{
     bottom: 4%;
 }
 
-.github-div2 a{
+.github-div2 a {
     text-decoration: none;
 }
 
-.github-div{
+.github-div {
     display: flex;
     position: relative;
 
 }
 
-.github-span{
+.github-span {
     display: flex;
     width: 100%;
     align-items: flex-end;
@@ -125,6 +125,7 @@ body.dark-theme .github-span{
     font-size: 0.6em;
     color: #171717;
 }
+
 .sidebar.collapsed .logo {
     position: absolute;
     left: 50%;
@@ -343,7 +344,7 @@ body.dark-theme .tooltip {
 
 }
 
-.sidebar.collapsed ul:before{
+.sidebar.collapsed ul:before {
     display: block;
     background-color: black;
     content: "";
@@ -427,7 +428,7 @@ footer p {
     right: 0;
 }
 
-.promo-container{
+.promo-container {
     position: relative;
     display: inline-block;
     height: 95vh;
@@ -453,7 +454,7 @@ footer p {
     }
 }
 
-.under-promo-title{
+.under-promo-title {
     font-size: 2.5rem;
     padding-bottom: 1%;
 }
@@ -467,7 +468,7 @@ footer p {
     margin-top: 1.5%;
 }
 
-.under-promo li{
+.under-promo li {
     margin-bottom: 2.5%;
     list-style-type: none;
 }
@@ -478,7 +479,7 @@ footer p {
     padding: 2% 2%;
 }
 
-.list-number{
+.list-number {
     color: #1B9AAA;
     font-weight: bold;
 }
@@ -488,7 +489,7 @@ footer p {
     transform: translateY(0); /* Вернуть на место */
 }
 
-.block-title{
+.block-title {
     color: #171717;
     font-size: 2.5rem;
     padding-left: 1.5%;
@@ -496,14 +497,14 @@ footer p {
     padding-bottom: 1%;
 }
 
-.under-promo-photo-block{
+.under-promo-photo-block {
     margin-bottom: 10px;
     border-radius: 15px;
     background-color: rgba(221, 221, 221, 0.85);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.container-with-photo{
+.container-with-photo {
     display: flex;
     /*border: 1px solid blue;*/
     border-radius: 15px;
@@ -513,7 +514,7 @@ footer p {
 }
 
 
-body.dark-theme .under-promo-photo-block{
+body.dark-theme .under-promo-photo-block {
     /*border: 1px solid red;*/
     margin-bottom: 10px;
     border-radius: 15px;
@@ -521,7 +522,7 @@ body.dark-theme .under-promo-photo-block{
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
-body.dark-theme .container-with-photo{
+body.dark-theme .container-with-photo {
     color: #d8d8d8;
     display: flex;
     /*border: 1px solid blue;*/
@@ -531,7 +532,7 @@ body.dark-theme .container-with-photo{
     font-weight: 500;
 }
 
-.under-promo-image{
+.under-promo-image {
     align-self: center;
     width: auto;
     height: 45vh;
@@ -539,26 +540,27 @@ body.dark-theme .container-with-photo{
     border-radius: 15px;
 }
 
-body.dark-theme .under-promo-developers{
+body.dark-theme .under-promo-developers {
     background-color: rgba(48, 48, 48, 0.61);
     padding: 3%;
     border-radius: 15px;
 }
-.under-promo-developers{
+
+.under-promo-developers {
     background-color: rgba(191, 191, 191, 0.61);
     padding: 3%;
     border-radius: 15px;
 }
 
 /*------------------------------Demand---------------------------------*/
-.pages-title-centered-container{
+.pages-title-centered-container {
     display: flex;
     justify-content: center;
     margin-bottom: 5%;
     margin-top: 2%;
 }
 
-.pages-title-container{
+.pages-title-container {
     position: relative;
     width: 60%;
 }
@@ -588,7 +590,7 @@ body.dark-theme .under-promo-developers{
     right: 0;
 }
 
-.demand-main-title{
+.demand-main-title {
     display: flex;
     width: 100%;
     font-size: 3rem;
@@ -596,39 +598,34 @@ body.dark-theme .under-promo-developers{
     align-items: center;
 }
 
-.pages-main-subtitle{
+.pages-main-subtitle {
     font-family: "work sans", sans-serif;
-    padding-left: 1.5%;
+    text-align: center;
+    padding: 1.5%;
     color: #171717;
 }
 
-.pages-graph-div{
-    background-color: rgba(191, 191, 191, 0.33);
+body.dark-theme .pages-main-subtitle {
+    color: #EFEFEF;
+}
+
+.pages-graph {
+    background-color: #bfbfbf9c;
+    padding: 3%;
     border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Тень */
     margin-bottom: 5%;
 }
 
-body.dark-theme .pages-graph-div{
-    background-color: #818080d9;
+body.dark-theme .pages-graph {
+    box-shadow: 0 4px 20px rgba(78, 78, 78, 0.5);
 }
 
-.pages-graph{
-    background-color: #bfbfbf9c;
-    padding: 1% 5% 5% 5%;
-    border-radius: 15px;
-}
-
-body.dark-theme .pages-graph{
+body.dark-theme .pages-graph {
     background-color: #3030309c;
 }
 
-.pages-graph-title{
-    padding: 1%;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.pages-hh-container{
+.pages-hh-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
     gap: 20px; /* Расстояние между элементами */
@@ -643,9 +640,9 @@ body.dark-theme .pages-graph{
     border-radius: 15px;
 }
 
-body.dark-theme .job-listing{
+body.dark-theme .job-listing {
     border: 1px solid rgba(172, 172, 172, 0.85);
-    background-color: rgba(87, 86, 86, 0.85);
+    background-color: rgba(69, 69, 69, 0.85);
 }
 
 .job-listing a {
@@ -656,9 +653,154 @@ body.dark-theme .job-listing{
 }
 
 .job-listing a:hover {
-    text-decoration : underline;
+    text-decoration: underline;
 }
 
 .job-listing div {
     margin: 2% 0;
 }
+
+.job-details {
+    flex-grow: 1;
+}
+
+.job-title-container {
+    display: flex;
+    align-items: center; /* Центрирует элементы по вертикали */
+    justify-content: space-between; /* Размещает элементы по краям */
+}
+
+.job-title a:hover {
+    text-decoration: underline;
+}
+
+.job-company {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+body.dark-theme .job-company {
+    color: #EFEFEF;
+}
+
+.job-salary {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+body.dark-theme .job-salary {
+    color: rgb(255, 255, 255);
+}
+
+.logo_company {
+    width: 15%;
+    height: auto;
+    margin-left: 15px;
+    border-radius: 15px;
+}
+
+.desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.5;
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+body.dark-theme .desc {
+    color: #EFEFEF;
+}
+
+.job-city {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+body.dark-theme .job-city {
+    color: #EFEFEF;
+}
+
+.job-experience {
+    background-color: #F1F4F9;
+    border-radius: 5px;
+    padding: 8px 8px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #696E79;
+    display: inline-block;
+    max-width: 100%;
+    word-wrap: break-word;
+    border: 1px solid #171717;
+}
+
+body.dark-theme .job-experience {
+    color: #cccccc;
+    background-color: #353535;
+    border: 1px solid #b8b8b8;
+}
+
+.job-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.pagesTable {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 2%;
+}
+
+.pagesTable td {
+    padding: 1%;
+    text-align: center;
+}
+
+.pagesTable th {
+    width: 50%;
+    font-size: 1.5rem;
+}
+
+.showMoreDiv {
+    display: flex;
+    justify-content: center;
+}
+
+#showMoreButton {
+    font-family: "work sans", sans-serif;
+    border-radius: 15px;
+    padding: 1%;
+    background-color: #EFEFEF; /* Исходный цвет фона */
+    color: #303030; /* Исходный цвет текста */
+    cursor: pointer; /* Изменяем курсор на указатель */
+    border: #1a1a1a 1px solid;
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход для фона и цвета текста */
+    margin-bottom: 5%;
+}
+
+#showMoreButton:hover {
+    background-color: #515151; /* Цвет фона при наведении */
+    color: #EFEFEF; /* Цвет текста при наведении */
+}
+
+body.dark-theme #showMoreButton {
+    background-color: #3030309c; /* Цвет фона в темной теме */
+    color: #EFEFEF; /* Цвет текста в темной теме */
+    border: 1px solid #a5a5a5;
+}
+
+body.dark-theme #showMoreButton:hover {
+    background-color: #EFEFEF; /* Цвет фона при наведении в темной теме */
+    color: #303030; /* Цвет текста при наведении в темной теме */
+}
+
+

@@ -12,29 +12,56 @@
 </div>
 <div class="pages-hh-container">
     {% for i in items %}
-    <div>
         <div class="job-listing">
-            <div>
-                <a href="{{ i.link }}">{{ i.title }}</a>
-            </div>
-            <div>{{ i.company }}</div>
-            <div>
-                <b>
-                    {% if i.salary.from == 'Отсутствует' and i.salary.to == 'Отсутствует' %}
-                    Отсутствует
-                    {% else %}
-                    {% if i.salary.from != 'Отсутствует' %}
-                    От {{ i.salary.from }}
-                    {% endif %}
-                    {% if i.salary.to != 'Отсутствует' %}
-                    До {{ i.salary.to }}
-                    {% endif %}
-                    {{ i.salary.currency }}
-                    {% endif %}
-                </b>
+            <div class="job-details">
+                <div class="job-title-container">
+                    <div class="job-title">
+                        <a href="{{ i.link }}" target="_blank">{{ i.title }}</a>
+                    </div>
+                    <img src="{{ i.logo }}" alt="Логотип компании" class="logo_company">
+                </div>
+                <div class="job-company">{{ i.company }}</div>
+
+                {% if i.city and i.city != 'Пусто' %}
+                    <div class="job-city">{{ i.city }}</div>
+                {% endif %}
+
+                <div class="job-salary">
+                    <b>
+                        {% if i.salary.from == 'Отсутствует' and i.salary.to == 'Отсутствует' %}
+                            Уровень дохода не указан
+                        {% else %}
+                            {% if i.salary.from != None %}
+                                От {{ i.salary.from }}
+                            {% endif %}
+                            {% if i.salary.to != None %}
+                                До {{ i.salary.to }}
+                            {% endif %}
+                            {{ i.salary.currency }}
+                        {% endif %}
+                    </b>
+                </div>
+
+                <div>
+                    <p class="desc">{{ i.desc }}</p>
+                </div>
+
+                <div>
+                    <div class="job-experience">
+                        {{ i.experience }}
+                    </div>
+
+                    {% for j in i.skills %}
+                        <div class="job-experience">{{ j }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="job-date">
+                    <small>{{ i.date }}</small>
+                </div>
+
             </div>
         </div>
-    </div>
     {% endfor %}
 </div>
 {% endblock %}
