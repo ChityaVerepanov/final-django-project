@@ -10,10 +10,65 @@
         <h1 class="demand-main-title">География</h1>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="pages-graph-title">
+    <h2 class="pages-main-subtitle">Динамика зарплат по городам</h2>
+</div>
+
+<div class="pages-graph">
+    <canvas id="salaryByCityChart" width="400" height="200"></canvas>
+    <script>
+        const salaryByCityData = {{ salary_by_city|safe }};
+        console.log(salaryByCityData); // Проверка данных в консоли
+
+        const cityLabels = Object.keys(salaryByCityData);
+        const cityData = Object.values(salaryByCityData);
+
+        // Ограничиваем количество городов до 50
+        const limitedCityLabels = cityLabels.slice(0, 50);
+        const limitedCityData = cityData.slice(0, 50);
+
+        // Создание графика зарплат
+        const ctxCitySalaries = document.getElementById('salaryByCityChart').getContext('2d');
+        const citySalaryChart = new Chart(ctxCitySalaries, {
+            type: 'bar',  // Можно использовать 'line' или 'bar'
+            data: {
+                labels: limitedCityLabels, // Используем ограниченные метки
+                datasets: [{
+                    label: 'Средняя зарплата',
+                    data: limitedCityData, // Используем ограниченные данные
+                    borderColor: 'rgb(255,99,132)',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    borderWidth: 1,
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Зарплата (в рублях)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Расположение'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+
+
 
 <div>
     <h2 class="pages-main-subtitle">Доля вакансий по городам</h2>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="pages-graph">
         <canvas id="cityChart" width="400" height="200"></canvas>
     </div>

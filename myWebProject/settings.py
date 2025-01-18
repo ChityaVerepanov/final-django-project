@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from collections import defaultdict
 from pathlib import Path
+
+import export
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,6 @@ SECRET_KEY = "django-insecure-e3kmm&x^y+eng32$!!+=t5&wr!4(z%e04s4uv5d%go&ug_ja#$
 DEBUG = True
 
 ALLOWED_HOSTS = ["rozakerosin.pythonanywhere.com", "*"]
-
 
 
 # Application definition
