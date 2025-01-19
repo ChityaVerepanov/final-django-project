@@ -14,7 +14,6 @@
 <div class="pages-graph-title">
     <h2 class="pages-main-subtitle">Динамика зарплат по городам</h2>
 </div>
-
 <div class="pages-graph">
     <canvas id="salaryByCityChart" width="400" height="200"></canvas>
     <script>
@@ -65,6 +64,53 @@
     </script>
 </div>
 
+<h2 class="pages-main-subtitle">Таблица с данными о зарплатах по городам</h2>
+<table id="pagesSalaryByCityTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Зарплата (₽)</th>
+        <th>Город</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут добавлены здесь с помощью JavaScript -->
+    </tbody>
+</table>
+<div class="showMoreDiv">
+    <button id="showMoreButton2" class="showMoreButton" style="margin-top: 10px;">Посмотреть больше</button>
+</div>
+<script>
+    // Заполнение таблицы данными о зарплатах по городам
+    const SalaryByCityTableBody = document.querySelector('#pagesSalaryByCityTable tbody');
+
+    function fillTable(limit) {
+        SalaryByCityTableBody.innerHTML = ''; // Очищаем таблицу перед заполнением
+        for (let i = 0; i < limit; i++) {
+            const row = document.createElement('tr');
+
+            const countCell = document.createElement('td');
+            countCell.textContent = cityData[i].toLocaleString('ru-RU') + ' ₽';
+            row.appendChild(countCell);
+
+            const cityCell = document.createElement('td');
+            cityCell.textContent = cityLabels[i];
+            row.appendChild(cityCell);
+
+            SalaryByCityTableBody.appendChild(row);
+        }
+    }
+
+    // Заполняем таблицу первыми 10 значениями
+    fillTable(10);
+
+    // Обработчик события для кнопки "Посмотреть больше"
+    document.getElementById('showMoreButton2').addEventListener('click', function() {
+        fillTable(cityLabels.length); // Заполняем таблицу всеми данными
+        this.style.display = 'none'; // Скрываем кнопку после нажатия
+    });
+</script>
+
+
 
 
 <div>
@@ -72,27 +118,9 @@
     <div class="pages-graph">
         <canvas id="cityChart" width="400" height="200"></canvas>
     </div>
-
-    <h2 class="pages-main-subtitle">Таблица вакансий по городам</h2>
-    <table id="pagesTable" class="pagesTable" border="1">
-        <thead>
-        <tr>
-            <th>Город</th>
-            <th>Количество вакансий</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="showMoreDiv">
-        <button id="showMoreButton" style="margin-top: 10px;">Посмотреть больше</button>
-    </div>
-
     <script>
-        // Получаем данные о вакансиях из Django
         const vacanciesByCityData = {{ vacancies_by_city_json|safe }};
         console.log(vacanciesByCityData); // Проверка данных в консоли
-
         // Проверяем, есть ли данные
         if (!vacanciesByCityData || vacanciesByCityData.length === 0) {
             console.error('Нет данных для отображения');
@@ -127,42 +155,59 @@
                     }
                 }
             });
-
-            // Заполнение таблицы данными (все данные)
-            const tableBody = document.getElementById('pagesTable').getElementsByTagName('tbody')[0];
-
-            // Отображаем только первые 10 значений
-            const initialCount = 10;
-            vacanciesByCityData.slice(0, initialCount).forEach(entry => {
-                const row = tableBody.insertRow();
-                const cellCity = row.insertCell(0);
-                const cellCount = row.insertCell(1);
-                cellCity.textContent = entry.area_name || 'Не указано'; // Название города
-                cellCount.textContent = entry.count; // Количество вакансий
-            });
-
-            // Переменная для отслеживания текущего количества отображаемых строк
-            let displayedCount = initialCount;
-
-            // Обработчик для кнопки "Посмотреть больше"
-            const showMoreButton = document.getElementById('showMoreButton');
-            showMoreButton.addEventListener('click', () => {
-                // Удаляем кнопку
-                showMoreButton.style.display = 'none';
-
-                // Заполняем оставшиеся данные
-                vacanciesByCityData.slice(displayedCount).forEach(entry => {
-                    const row = tableBody.insertRow();
-                    const cellCity = row.insertCell(0);
-                    const cellCount = row.insertCell(1);
-                    cellCity.textContent = entry.area_name || 'Не указано'; // Название города
-                    cellCount.textContent = entry.count; // Количество вакансий
-                });
-
-                // Обновляем количество отображаемых строк
-                displayedCount = vacanciesByCityData.length; // Теперь показываем все данные
-            });
         }
     </script>
 </div>
+<h2 class="pages-main-subtitle">Таблица вакансий по городам</h2>
+<table id ="pagesVacancyTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Город</th>
+        <th>Количество вакансий</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div class="showMoreDiv">
+    <button id="showMoreButton" class="showMoreButton" style="margin-top: 10px;">Посмотреть больше</button>
+</div>
+<script>
+
+    // Заполнение таблицы данными (все данные)
+    const VacancyByCityTableBody = document.getElementById('pagesVacancyTable').getElementsByTagName('tbody')[0];
+
+    // Отображаем только первые 10 значений
+    const initialCount = 10;
+    vacanciesByCityData.slice(0, initialCount).forEach(entry => {
+        const row = VacancyByCityTableBody.insertRow();
+        const cellCity = row.insertCell(0);
+        const cellCount = row.insertCell(1);
+        cellCity.textContent = entry.area_name || 'Не указано'; // Название города
+        cellCount.textContent = entry.count; // Количество вакансий
+    });
+
+    // Переменная для отслеживания текущего количества отображаемых строк
+    let displayedCount = initialCount;
+
+    // Обработчик для кнопки "Посмотреть больше"
+    const showMoreButton = document.getElementById('showMoreButton');
+    showMoreButton.addEventListener('click', () => {
+        // Удаляем кнопку
+        showMoreButton.style.display = 'none';
+
+        // Заполняем оставшиеся данные
+        vacanciesByCityData.slice(displayedCount).forEach(entry => {
+            const row = VacancyByCityTableBody.insertRow();
+            const cellCity = row.insertCell(0);
+            const cellCount = row.insertCell(1);
+            cellCity.textContent = entry.area_name || 'Не указано'; // Название города
+            cellCount.textContent = entry.count; // Количество вакансий
+        });
+
+        // Обновляем количество отображаемых строк
+        displayedCount = vacanciesByCityData.length; // Теперь показываем все данные
+    });
+</script>
+
 {% endblock %}

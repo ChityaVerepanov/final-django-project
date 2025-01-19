@@ -12,79 +12,146 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class="pages-graph-title">
-        <h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
-    </div>
-    <div class="pages-graph">
-        <canvas id="vacanciesChart" width="400" height="200"></canvas>
-        <script>
-            // Передаем данные о вакансиях из Django в JavaScript
-            const vacanciesData = {{ vacancies_per_year|safe }};
+<div class="pages-graph-title">
+    <h2 class="pages-main-subtitle">Динамика зарплат по годам</h2>
+</div>
+<div class="pages-graph">
+    <canvas id="salaryChart" width="400" height="200"></canvas>
+    <script>
+        // Подготовка данных для графика средней зарплаты
+        const salaryData = {{ salary_data|safe }};
+        const labelsSalaries = Object.keys(salaryData);
+        const dataSalaries = Object.values(salaryData);
 
-            // Подготовка данных для графика вакансий
-            const labelsVacancies = vacanciesData.map(entry => entry.year);
-            const dataVacancies = vacanciesData.map(entry => entry.count);
-
-            // Создание графика вакансий
-            const ctxVacancies = document.getElementById('vacanciesChart').getContext('2d');
-            const vacanciesChart = new Chart(ctxVacancies, {
-                type: 'line',
-                data: {
-                    labels: labelsVacancies,
-                    datasets: [{
-                        label: 'Количество вакансий',
-                        data: dataVacancies,
-                        borderColor: 'rgb(27,154,170)',
-                        backgroundColor: 'rgba(27,154,170,0.11)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        // Создание графика средней зарплаты
+        const ctxSalaries = document.getElementById('salaryChart').getContext('2d');
+        const salaryChart = new Chart(ctxSalaries, {
+            type: 'line',
+            data: {
+                labels: labelsSalaries,
+                datasets: [{
+                    label: 'Средняя зарплата',
+                    data: dataSalaries,
+                    borderColor: 'rgb(255,99,132)',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
-        </script>
-    </div>
+            }
+        });
+    </script>
+</div>
 
-    <div class="pages-graph-title">
-        <h2 class="pages-main-subtitle">Динамика зарплат по годам</h2>
-    </div>
-    <div class="pages-graph">
-        <canvas id="salaryChart" width="400" height="200"></canvas>
-        <script>
-            // Подготовка данных для графика средней зарплаты
-            const salaryData = {{ salary_data|safe }};
-            const labelsSalaries = Object.keys(salaryData);
-            const dataSalaries = Object.values(salaryData);
+<h2 class="pages-main-subtitle">Таблица с данными о зарплатах по годам</h2>
+<table id="pagesSalaryByYearTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Зарплата (₽)</th>
+        <th>Год</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут добавлены здесь с помощью JavaScript -->
+    </tbody>
+</table>
+<script>
+    // Заполнение таблицы данными о зарплате
+    const SalaryByYearTableBody = document.querySelector('#pagesSalaryByYearTable tbody');
 
-            // Создание графика средней зарплаты
-            const ctxSalaries = document.getElementById('salaryChart').getContext('2d');
-            const salaryChart = new Chart(ctxSalaries, {
-                type: 'line',
-                data: {
-                    labels: labelsSalaries,
-                    datasets: [{
-                        label: 'Средняя зарплата',
-                        data: dataSalaries,
-                        borderColor: 'rgb(255,99,132)',
-                        backgroundColor: 'rgba(255,99,132,0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+    // Проходим по данным зарплат и добавляем строки в таблицу
+    for (let i = 0; i < labelsSalaries.length; i++) {
+        const row = document.createElement('tr');
+
+        const salaryCell = document.createElement('td');
+        // Округляем значение зарплаты до целого и форматируем с пробелами
+        salaryCell.textContent = Math.round(dataSalaries[i]).toLocaleString('ru-RU') + ' ₽';
+        row.appendChild(salaryCell);
+
+        const yearCell = document.createElement('td');
+        yearCell.textContent = labelsSalaries[i];
+        row.appendChild(yearCell);
+
+        SalaryByYearTableBody.appendChild(row);
+    }
+</script>
+
+
+
+
+<div class="pages-graph-title">
+    <h2 class="pages-main-subtitle">Динамика количества вакансий по годам</h2>
+</div>
+<div class="pages-graph">
+    <canvas id="vacanciesChart" width="400" height="200"></canvas>
+    <script>
+        // Передаем данные о вакансиях из Django в JavaScript
+        const vacanciesData = {{ vacancies_per_year|safe }};
+
+        // Подготовка данных для графика вакансий
+        const labelsVacancies = vacanciesData.map(entry => entry.year);
+        const dataVacancies = vacanciesData.map(entry => entry.count);
+
+        // Создание графика вакансий
+        const ctxVacancies = document.getElementById('vacanciesChart').getContext('2d');
+        const vacanciesChart = new Chart(ctxVacancies, {
+            type: 'line',
+            data: {
+                labels: labelsVacancies,
+                datasets: [{
+                    label: 'Количество вакансий',
+                    data: dataVacancies,
+                    borderColor: 'rgb(27,154,170)',
+                    backgroundColor: 'rgba(27,154,170,0.11)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
-        </script>
-    </div>
+            }
+        });
+    </script>
+</div>
+<h2 class="pages-main-subtitle">Таблица с данными о вакансиях по годам</h2>
+<table id="pagesVacancyByYearTable" class="pagesTable" border="1">
+    <thead>
+    <tr>
+        <th>Количество вакансий</th>
+        <th>Год</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут добавлены здесь с помощью JavaScript -->
+    </tbody>
+</table>
+<script>
+    // Заполнение таблицы данными о вакансиях
+    const vacancyByYaerTableBody = document.querySelector('#pagesVacancyByYearTable tbody');
+
+    // Проходим по данным о вакансиях и добавляем строки в таблицу
+    for (let i = 0; i < labelsVacancies.length; i++) {
+        const row = document.createElement('tr');
+
+        const countCell = document.createElement('td');
+        countCell.textContent = dataVacancies[i];
+        row.appendChild(countCell);
+
+        const yearCell = document.createElement('td');
+        yearCell.textContent = labelsVacancies[i];
+        row.appendChild(yearCell);
+
+        vacancyByYaerTableBody.appendChild(row);
+    }
+</script>
 {% endblock %}

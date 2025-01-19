@@ -30,8 +30,8 @@ def return_general_statistics(request):
         count=Count('id')).order_by('year')
     vacancies_data = list(vacancies_per_year)
 
-    salary_data = get_average_salaries_by_year()
-    salary_by_city = get_average_salary_by_city()
+    salary_by_year_data = get_average_salaries_by_year()
+    salary_by_city_data = get_average_salary_by_city()
 
     vacancies_by_city = Profession.objects.values('area_name').annotate(count=Count('id')).order_by('-count')
     vacancies_data_json = json.dumps(list(vacancies_by_city))
@@ -43,10 +43,10 @@ def return_general_statistics(request):
     return render(request, 'general_statistics.html',
                   context={
                       "vacancies_per_year": vacancies_data,
-                      "salary_data": salary_data,
+                      "salary_data": salary_by_year_data,
                       "vacancies_by_city_json": vacancies_data_json,
                       "top_skills": top_skills,
-                      "salary_by_city": salary_by_city,
+                      "salary_by_city": salary_by_city_data,
                       "current_theme": current_theme
                   })
 

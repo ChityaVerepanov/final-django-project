@@ -259,6 +259,8 @@ body.dark-theme .burger::after {
 .sidebar {
     width: 300px;
     height: 90vh;
+    max-height: 950px;
+    min-height: 680px;
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
@@ -542,11 +544,32 @@ footer p {
 .container-with-photo {
     display: flex;
     /*border: 1px solid blue;*/
+    flex-direction: row;
     border-radius: 15px;
     padding: 3%;
     background-color: rgb(205, 204, 204);
     font-weight: 500;
     font-size: 2vh;
+}
+
+@media (max-width: 768px) { /* Для экранов менее 768px */
+    .under-promo-photo-block {
+        margin-bottom: 5px; /* Уменьшаем отступ */
+        border-radius: 10px; /* Уменьшаем радиус скругления */
+        background-color: rgba(200, 200, 200, 0.85); /* Изменяем цвет фона */
+    }
+
+    .container-with-photo {
+        flex-direction: column; /* Изменяем направление на колонку */
+        padding: 5%; /* Увеличиваем отступы */
+    }
+
+    .under-promo-image {
+        width: 100%; /* Изображение занимает всю ширину */
+        height: auto; /* Высота автоматически подстраивается */
+        margin-left: 0; /* Убираем отступ слева */
+    }
+
 }
 
 
@@ -811,7 +834,7 @@ body.dark-theme .job-experience {
     justify-content: center;
 }
 
-#showMoreButton {
+.showMoreButton {
     font-family: "work sans", sans-serif;
     border-radius: 15px;
     padding: 1%;
@@ -823,18 +846,18 @@ body.dark-theme .job-experience {
     margin-bottom: 5%;
 }
 
-#showMoreButton:hover {
+.showMoreButton:hover {
     background-color: #515151; /* Цвет фона при наведении */
     color: #EFEFEF; /* Цвет текста при наведении */
 }
 
-body.dark-theme #showMoreButton {
+body.dark-theme .showMoreButton {
     background-color: #3030309c; /* Цвет фона в темной теме */
     color: #EFEFEF; /* Цвет текста в темной теме */
     border: 1px solid #a5a5a5;
 }
 
-body.dark-theme #showMoreButton:hover {
+body.dark-theme .showMoreButton:hover {
     background-color: #EFEFEF; /* Цвет фона при наведении в темной теме */
     color: #303030; /* Цвет текста при наведении в темной теме */
 }
