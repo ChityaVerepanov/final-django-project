@@ -19,16 +19,22 @@
 {% block header %}
 <header>
     <aside class="sidebar collapsed">
-        <nav>
-            <div>
-                <a href="home">
+        <nav class="nav-menu">
+            <div class="logo-div">
+                <a href="home" class="logoLink">
                     <img class="logo" src="{% static 'img/logo.svg' %}" alt="Логотип">
                 </a>
             </div>
-            <button class="burger"></button>
-            <button id="themeToggle" class="theme-toggle">
-                <img class="theme_changer_ico" src="{% static 'img/moon_dark.svg' %}">
-            </button>
+            <div class="controls-div">
+                <div class="burger-div">
+                    <button class="burger"></button>
+                </div>
+                <div class="theme-toggle-div">
+                    <button id="themeToggle" class="theme-toggle">
+                        <img class="theme_changer_ico" src="{% static 'img/moon_dark.svg' %}" alt="Переключение темы">
+                    </button>
+                </div>
+            </div>
         </nav>
         <ul>
             <li class="no-wrap" data-tooltip="Главная страница"><a href="home"><img src="{% static 'img/home_icon_light.svg' %}" alt="Главная страница"
@@ -67,7 +73,7 @@
                                                      alt="Последние вакансии"
                                                      style="width: 20px; height: 20px; margin-left: 1px;" class="icon"
                                                      data-light-src="{% static 'img/job_search_icon_light.svg' %}"
-                                                     data-dark-src="{% static 'img/job_search_icon_dark.svg' %}"><span>Последние вакансии</span></a>
+                                                     data-dark-src="{% static 'img/job_search_icon_dark.svg' %}"><span> Последние вакансии</span></a>
             </li>
         </ul>
         <div class="github-div2">

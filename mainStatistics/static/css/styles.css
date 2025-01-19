@@ -36,6 +36,13 @@ body.dark-theme {
     color: #EFEFEF;
 }
 
+#themeToggle{
+    width: 50%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 body.dark-theme .sidebar {
     background-color: rgba(14, 14, 16, 0.7); /* Полупрозрачный фон */
     color: #f0f0f0; /* Цвет текста */
@@ -54,29 +61,31 @@ body.dark-theme .sidebar ul li a:hover {
     color: #fff; /* Dark theme hover text color */
 }
 
+.nav-menu{
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 20%;
+    display: flex;
+    width: 100%; /* Ширина навигационного меню */
+}
 
-#themeToggle {
-    position: absolute;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 8vh;
+.logo-div{
+    flex: 0 0 75%; /* Логотип занимает 60% ширины */
     height: auto;
-    right: 4.5%;
-    align-self: flex-end;
 }
 
-.burger {
-    display: block;
+.controls-div {
+    display: flex; /* Вторая колонка также использует Flexbox */
+    flex-direction: column; /* Элементы располагаются вертикально */
+    flex: 1; /* Занимает оставшуюся ширину */
+    height: 100%;
+    justify-content: space-between;
 }
 
-.sidebar.collapsed .burger {
-    position: absolute; /* Размещаем кнопку бургера в свернутом состоянии */
-    top: 3%;
-    left: 50%;
-    transform: translateX(-50%);
+.burger-div, .theme-toggle-div {
+    flex: 0 0 40%; /* Каждая кнопка занимает 50% высоты родительского контейнера */
 }
+
 
 body.dark-theme .github-span {
     color: #EFEFEF;
@@ -126,37 +135,62 @@ body.dark-theme .github-span {
     color: #171717;
 }
 
-.sidebar.collapsed .logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 8.5%;
-}
-
 .sidebar.collapsed #themeToggle {
     position: relative; /* Размещаем переключатель темы в свернутом состоянии */
-    width: 4em;
+    width: 100%;
     height: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar.collapsed .controls-div{
+    justify-content: space-around;
+}
+
+.sidebar.collapsed .logo{
+    display: flex;
+    justify-content: center;
 }
 
 .theme_changer_ico {
-    width: 70%;
+    width: 100%;
     height: auto;
 }
 
+.sidebar.collapsed .logo-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.sidebar.collapsed .theme_changer_ico {
+    width: 75%;
+}
+
+.theme-toggle-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.burger-div{
+    width: 100%;
+    position: relative;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .burger {
     border: none;
     background: transparent;
     width: 22px;
     height: 17.33px;
-    align-self: flex-start;
     position: absolute;
-    right: 11%;
-    top: 3%;
     cursor: pointer;
+    display: block;
 }
 
 
@@ -213,37 +247,13 @@ body.dark-theme .burger::after {
 }
 
 
-nav div {
-    /*border: 1px solid green;*/
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
-    height: 100%;
-    max-width: 75%;
-}
-
 .logo {
     /*border: 1px solid black;*/
-    width: 80%;
+    display: block;
+    width: 100%;
     max-width: 350px; /* Ограничиваем максимальную ширину логотипа */
     height: auto; /* Поддерживаем пропорции изображения */
-    align-items: center;
-    justify-content: flex-end;
 }
-
-.sidebar nav {
-    /*border: 2px solid blue;*/
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    height: 20%;
-}
-
-header nav div:hover {
-    cursor: pointer;
-    color: #d4f4dd;
-}
-
 
 /* Sidebar */
 .sidebar {
@@ -271,6 +281,20 @@ header nav div:hover {
 body.dark-theme .sidebar ul li.active {
     background-color: rgba(118, 207, 204, 0.44);
 }
+
+.sidebar.collapsed .logo-div{
+    width: 100%;
+    flex-basis: 35%;
+}
+
+
+.sidebar.collapsed .nav-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .sidebar.collapsed {
     width: 60px;
@@ -397,13 +421,16 @@ footer p {
 /*-------------------------------Content----------------------------------*/
 
 .promo-title {
+    margin-left: 5%;
     font-family: "work sans", serif;
     overflow: hidden;
     border-right: .1em solid #1B9AAA;
     white-space: nowrap;
     position: absolute;
-    top: 32%;
-    font-size: 7.4rem;
+    top: 50%; /* Центрируем по вертикали */
+    transform: translateY(-50%); /* Сдвигаем на половину высоты элемента */
+    font-size: 8vw; /* Используем vw для адаптивного размера шрифта */
+    max-width: 90%; /* Устанавливаем максимальную ширину */
     z-index: 1;
     animation: typing 2s steps(15, end) forwards,
     blinking 0.75s infinite;
@@ -430,7 +457,10 @@ footer p {
 
 .promo-container {
     position: relative;
-    display: inline-block;
+    display: flex; /* Используем Flexbox для центрирования */
+    justify-content: flex-start; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    width: 100%;
     height: 95vh;
     margin-bottom: 5vh;
     border-radius: 35px;
@@ -438,19 +468,19 @@ footer p {
 
 @keyframes typing {
     from {
-        width: 0
+        width: 0;
     }
     to {
-        width: 100%
+        width: 100%;
     }
 }
 
 @keyframes blinking {
     from {
-        border-color: transparent
+        border-color: transparent;
     }
     to {
-        border-color: #1B9AAA
+        border-color: #1B9AAA;
     }
 }
 
@@ -459,11 +489,16 @@ footer p {
     padding-bottom: 1%;
 }
 
+.block-text{
+    display: flex;
+    align-items: center;
+}
+
 .under-promo {
-    font-size: 22px;
+    font-size: 1.5em;
     opacity: 0; /* Скрыть текст */
-    transform: translateY(20px); /* Сдвинуть вниз */
     transition: opacity 1s ease, transform 0.5s ease; /* Плавный переход */
+    align-self: stretch;
     margin-bottom: 1.5%;
     margin-top: 1.5%;
 }
@@ -511,6 +546,7 @@ footer p {
     padding: 3%;
     background-color: rgb(205, 204, 204);
     font-weight: 500;
+    font-size: 2vh;
 }
 
 
@@ -535,7 +571,7 @@ body.dark-theme .container-with-photo {
 .under-promo-image {
     align-self: center;
     width: auto;
-    height: 45vh;
+    height: 25vw;
     margin-left: 25px;
     border-radius: 15px;
 }
